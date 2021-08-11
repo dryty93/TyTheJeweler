@@ -1,0 +1,17 @@
+{% extends 'Products/base.html' %}
+
+  <title>{% block title %}Categories{% endblock %}</title>
+
+{% block content %}
+ {% for sections in categories %}
+        <a href="/Products/Categories/{{ sections.id }}"/>
+            <button>
+                {{sections.name}}
+            </button>
+        </a>
+     <form target="./">
+
+     </form>
+
+{% endfor %}
+{% endblock %}

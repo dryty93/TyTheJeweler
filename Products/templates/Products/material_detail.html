@@ -1,0 +1,19 @@
+
+{% extends 'Products/base.html' %}
+
+{% block content %}
+<div style="text-align: center;">
+<h1>Shop {{ object.name }}</h1>
+
+{% if object.image %}
+
+<img style="width: 40%;" src={{object.image.url}} alt="">
+
+{% endif %}
+
+<p>{{ object.summary }}</p>
+
+    {{items.price}}
+
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+
+{% extends 'Products/base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+
+<body>
+{% block content %}
+
+<div class="container">
+
+    {% if not user.is_authenticated %}
+<div id="name">
+<h1 style="text-align: center">
+    Welcome
+    {{name}}
+
+</h1>
+        </div>
+         <div>
+        <div class="container" style="text-align: center;">
+      <strong>Menu:</strong>
+      <ul>
+
+        <a class="btn-outline-primary" href="/login/">Sign In</a> Or
+
+       <a href="/signup/">Sign Up</a><br>
+            <a class="btn btn-outline-dark"  role="button" style="text-transform:none" title="Google" class="socialaccount_provider google" href="/accounts/google/login">
+      <img width="20px" style="margin-bottom:3px; margin-right:5px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+Login with Google</a>
+          <p>To Start Shopping</p>
+
+      </ul>
+    </div>
+
+
+    {% endif %}
+
+    {% if user.is_authenticated %}
+   <h1 style="text-align: center">
+       Welcome back {{ user }}
+   {{ visits }}
+   </h1>
+
+
+            {% endif %}
+
+
+
+</div>
+</div>
+    <h2 class="quote">
+    Free Shipping!
+</h2>
+{% endblock %}
+

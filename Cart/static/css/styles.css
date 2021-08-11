@@ -1,0 +1,44 @@
+
+.nav_bar li {
+    color: whitesmoke;
+    display: inline;
+    padding: 5%;
+
+}
+
+.nav_bar{
+    text-align: center ;
+
+
+}
+.quote h2{
+    color: whitesmoke;
+    padding-top: 10%;
+    text-align: center;
+}
+.product_grid{
+    box-shadow: hsl(0,0%,80%) 0 0 16px;
+    border-radius: 4px;
+    padding: 10px;
+    text-align: center;
+}
+
+body{
+
+    background-image:
+
+
+            linear-gradient(
+                    rgba(0.2, 0, 0, 0.1),
+                    rgba(0.2, 3, 0, 0.1)
+            ),url("bckground.jpg");
+    background-size: 100%;
+    background-width: 10%;
+}
+
+.container{
+    background-color: white;
+}
+.main-container {
+    height:30%;
+}

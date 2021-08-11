@@ -1,0 +1,31 @@
+[
+  {
+    "model": "Product",
+    "fields": {
+      "name": "Star Pendant Chain",
+      "summary": "Pictured is a sterling silver Star Pendant coupled with a sterling silver chain. Great for young kids and adults. The chain is fine and supports the mass of the pendant.",
+      "image": "/product_img/star_pendant.jpg/"
+    }
+  },
+
+  {
+    "model": "Product",
+  "fields": {
+    "name": "Mother of Pearl Pendant",
+    "summary": "Pictured is a mother of pearl gem encased in a 925 Sterling Silver shield that is garnished with fine stones.",
+        "image": "/media/product_img/MotherofPearl_1.jpg/"
+
+  }
+  },
+
+
+{ "model": "Product",
+  "fields": {
+    "name":"Mother of Pearl Pendant" ,
+    "summary": "Pictured is a mother of pearl gem encased in a 925 Sterling Silver shield that is garnished with fine stones.",
+        "image":"/product_img/MotherofPearl_1.jpg/"
+
+  }
+}
+]
+

@@ -1,0 +1,107 @@
+{% extends 'Products/base.html' %}
+{% load djmoney %}
+
+{% money_localize money_object %}
+{% money_localize money_object on %}
+
+
+  <title>{% block title %}Products{% endblock %}</title>
+
+{% block content %}
+<script
+        src="https://www.paypal.com/sdk/js?client-id=AV5dg8MHR7iRIa-ZLTwhBmREzMncoEPsZjKRLGD5rfaph2wjmM1bbc9ExXj5dwGaplwJNoWVoZ6IPGsO"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
+</script>
+<div class="main_container">
+
+
+
+    <div class="product_grid">
+        <div class="row">
+            <div class="col-md-6">
+
+               {% for items in list %}
+
+
+
+                         <button
+
+                                 id="{{ sections.id }}" class="btn-group">
+                            {{sections.name}}
+                        </button>
+                {% endfor %}
+
+            </div>
+            <div class="col-md-6">
+                    {% for metal in material %}
+                        <a href="/Products/Material/{{metal.id}}">
+                            <button>
+                                {{metal.name}}
+                            </button>
+                        </a>
+                    {% endfor %}
+
+            </div>
+
+        <div class="container">
+                    <div class="row">
+                        {% for items in products %}
+
+                            <div class="col-sm-4">
+                                    <h4 style=" ; font-family: Quant-Light;">
+                                           <a style="color:#000;" href="/Products/{{items.id}}">
+                                               {{items.name}}
+                                           </a>
+                                    </h4>
+
+                                    <a href="/Products/Categories/{{ items.category.id }}">
+                                        <button  class="btn btn-info">{{items.category}}</button>
+
+
+                                    </a>
+                                    <br>
+
+                                    {% if items.image %}
+
+                                        <a href="/Products/{{items.id}}">
+                                            <img style="height:149.99px; width:231.55px;" src="{{items.image.url}}">
+
+                                        </a>
+
+
+                                    {% endif %}
+                            {% if items.amt_in_stock is 0 %}
+                                <p>Not in stock</p>
+                            {% endif %}
+                                    <p>
+                                        Price: {{items.price}}
+                                    </p>
+                            <div id="addTo">
+                                <form action="/Cart/" method="post">
+ {% csrf_token %}
+    <input type="hidden" value=" {{items.price}}" name="price">
+    <input type="hidden" value=" {{items.name}}" name="name">
+    <input type="hidden" value=" {{items.id}}" name="name">
+    <input type="submit" value="Add To Cart">
+
+</form>
+
+                            </div>
+
+
+
+                                </div>
+                            {% endfor %}
+
+                    </div>
+
+                    </div>
+
+        </div>
+    </div>
+
+
+
+    </div>
+
+
+{% endblock %}

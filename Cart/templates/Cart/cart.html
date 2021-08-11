@@ -1,0 +1,117 @@
+{% extends 'Products/base.html' %}
+{% load static %}
+{% load djmoney %}
+
+{% money_localize money_object %}
+{% money_localize money_object on %}
+
+{% block content %}
+    <h1 style="text-align: center;">
+        Cart
+    </h1>
+<div class="container">
+    <div class="row">
+<div id="main_cart">
+
+    <div class="col-md-12">
+        <table style="padding:5px; width:100%;">
+            <tr>
+                <th>
+                    <input  type="checkbox" id="select-all" />
+                    <label style="text-align: center;" for="select-all">Select All</label>
+                </th>
+                <td>
+                </td>
+                <td>
+
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <th>Product</th>
+                <th>Summary</th>
+                <th>Price</th>
+            </tr>
+            {% for i in all_items%}
+                <form class="cart" name="rem" method="post" action="./rem">
+                <tr>
+                    <td>
+                        <input type="checkbox" class="choice" name='{{ i.product.id }}'
+                               value='{{ i.product }}' >
+                        <label for="{{i.product}}">{{ i.product  | truncatechars:9 }}</label>
+                        {% if i.product.image %}
+                            <img style="height:60px; width:100px;" src="{{i.product.image.url}}" >
+                        {% endif %}
+                    </td>
+                    <td> <label for="{{i.product}}">{{ i.product.summary  | truncatechars:9 }}'</label>
+                    </td>
+                    <td> <label for="{{ i.price }}">{{ i.price }}</label></td>
+
+                </tr>
+            {% endfor %}
+            <tr>
+                <td>
+
+                        {% csrf_token %}
+                        <button  class="btn-danger" type="submit">Remove Selected</button>
+                    </form>
+                </td>
+                <td>
+                    <div id="checkout_btn">
+
+                        <button  class="btn-outline-primary" >
+                            CheckOut
+                        </button></div>
+                </td>
+                <td>Total: {{ total }}</td>
+
+                <td></td>
+            </tr>
+        </table>
+
+
+    </div>
+
+</div>
+
+    <div class="col-md-4">
+<form target="/Cart/Order" method="post">
+    <div id="get_order">
+        <label for="email">Email <input type="text"value="{{ user.email }}" name="email"/></label>
+        <label for="name">Name <input type="text"value="{{ user.username }}"  name="name"></label>
+        <label for="address">Address<input type="text"  value="{{ user.address }}"name="address" ></label>
+        <label for="zip">Zip Code<input type="text"  value="{{ user.zip }}"name="zip"></label>
+        <input type="button" value="Create Order" />
+
+    </div>
+
+    <hr>
+</form>
+
+    </div>
+
+        </div>
+
+
+    <div id="checkout">
+        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_xclick">
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="amount" value={{ paypal_dict.amount }}>
+            <input type="hidden" name="description" value={{ total }}><p>{{ total }}</p>
+            <input type="hidden" name="return" value="http://127.0.0.1:8000/">
+            <input type="hidden" name="business" value="sb-wgpz435132149@business.example.com">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
+
+
+
+</div>
+
+
+
+{% endblock %}
+

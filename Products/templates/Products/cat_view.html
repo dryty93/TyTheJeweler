@@ -1,0 +1,37 @@
+{% extends 'Products/base.html' %}
+
+<title>Categories</title>
+{% block content %}
+    <div class="main-container">
+    <div class="container">
+    <h1 >
+    {{ category }}
+</h1>
+    {% for items in products%}
+    <h3>
+    {{items}}
+    </h3>
+        {% if items.image %}
+             <img
+                    style="height:149.99px; width:231.55px;"
+                  src="{{items.image.url}}">
+        {%  endif %}
+             <form action="/Cart/" method="post">
+                 {% csrf_token %}
+                <input type="hidden" value=" {{items.price}}" name="price">
+                <input type="hidden" value=" {{items.name}}" name="name">
+                <input type="hidden" value=" {{items.id}}" name="name">
+                <input type="submit" value="Add To Cart">
+
+
+            </form>
+    {% endfor %}
+
+
+</div>
+
+
+    </div>
+
+
+{% endblock %}

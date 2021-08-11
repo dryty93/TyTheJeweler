@@ -1,0 +1,170 @@
+{% load static %}
+{% load socialaccount %}
+
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="description" content="Gold, Silver, precious metals & Gemstone connosoiuer.
+       At Ty The Jeweler we don't just sell beautiful jewelry to customers at very competitive rates.
+       No instead we share our craft and love of jewelry with the world by enabling investment and education
+      into the world of precious metals, gold, silver, copper, and so much more. 3d jewelry molding services available.">
+
+    <meta name="author" content="Dryden LLC">
+    <meta name="keywords" content="Gold, Silver, Gemstones,
+       Diamonds, Precious Metal, Jewelry">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
+    <title>{% block title %}TyTheJeweler{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script type="text/javascript" href="{% static 'js/jquery.js' %}"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+</head>
+<body style="height: 100%;">
+
+<div class="main_container">
+
+    <div class="logo">
+<img width="200px" src="/media/tythejeweler_logo.png" alt="My image">
+        </div>
+
+{% if 'guest' in user.name %}
+<p>ui</p>
+{% endif %}
+
+
+    {% if user.is_authenticated %}
+
+<a href=" {% url 'logout' %}">Logout</a>
+
+    {% endif %}
+
+        <div class="nav_bar">
+            <ul>
+
+                <a href="/">
+                    <li>
+                        &#127968;
+                        Home
+
+                    </li>
+
+
+                </a>
+
+
+                <a href="/Products">
+                    <li>
+                        🛍 Products
+
+                    </li>
+                </a>
+
+                <li>
+                    <a style="color: white" href="/Cart"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg> {{ total }} Cart</a>
+                </li>
+
+            </ul>
+
+        </div>
+</div>
+
+  {% block content %}
+
+    {% endblock %}
+
+</body>
+</html>
+
+<footer class="align-content-md-end">
+    <hr>
+    <h3>Dryden Inc. 2020 &#169</h3>
+</footer>
+
+<script type="text/javascript ">
+
+  $(document).ready(function () {
+
+      let init_order = $("#get_order");
+      init_order.hide();
+
+
+      let checkout_btn = $("#checkout_btn");
+      let paypal_btn = $("#checkout");
+      let main_cart = $("#main_cart");
+      paypal_btn.hide();
+      main_cart.attr('class', 'col-md-12');
+
+
+      checkout_btn.click(function()
+      {
+          $(this).replaceWith(paypal_btn);
+//          $(this).append(paypal_btn);
+          paypal_btn.show();
+          init_order.show();
+          main_cart.attr('class', 'col-md-8');
+
+
+      })
+
+
+      let select_all = $("#select-all");
+      select_all.click(function () {
+          if (select_all.is(':checked')) {
+              $(".choice").prop('checked',true);
+              console.log($(".choice"));
+          }
+          else{
+              $(".choice").prop('checked',false);
+          }
+      });
+
+
+      let dict = {
+          guest:"{{ guest.username }}",
+          user: (new String("{{ user }}").valueOf() === new String('AnnonymousUser').valueOf() ?  '{{ guest.username }}': "{{ user }}"),
+
+          entries:'{{ entries }}',
+          count:'{{ count}}',
+          total:'{{ total }}',
+      };
+      console.log(dict);
+
+
+
+      let cont_as_guest_btn = $('#cont');
+      cont_as_guest_btn.on("click", function () {
+          $(this).hide();
+          $('#name').val(dict.user);
+          $(location).attr('href', '/Products/');
+      });
+      var cat = $('#{{ section.id }}');
+      cat.hover(
+          function () {
+              cat.css("color","red");
+              alert(color);
+          });
+      cat.mouseleave(
+          function () {
+              cat.css("color","black");
+          }
+      );
+
+      let data = '{{data.ctx }}';
+
+      let addToCart = $('#addTo');
+
+      addToCart.on("click", function () {
+          $('#name').val(user);
+          document.body.append("Added");
+          $(location).attr('href', '/Products/');
+      })
+  });
+
+
+</script>

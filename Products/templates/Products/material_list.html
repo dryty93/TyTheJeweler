@@ -1,0 +1,46 @@
+}
+
+{% extends 'Products/base.html' %}
+
+  <title>{% block title %}Materials{% endblock %}</title>
+
+{% block content %}
+<div class="container">
+    {% for object in object_list %}
+    <div class="row">
+        <div class="col-md-12">
+            <h4>{{ object.name }}</h4>
+        </div>
+
+
+
+    </div>
+     <!-- Iterate over object_list -->
+
+    <!-- Display Objects -->
+
+        <div class="row">
+            <div class="col-md-3">
+
+        {% if object.image %}
+
+        <img style="width: 40%;" src={{object.image.url}} alt=""/>
+        {% endif %}
+
+            <p>{{ object.summary }}</p>
+
+            <hr/>
+            <!-- If objet_list is empty  -->
+            {% empty %}
+            <li>No objects yet.</li>
+                {% endfor %}
+
+
+        </div>
+
+
+</div>
+
+</div>
+
+{% endblock %}
